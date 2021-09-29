@@ -10,13 +10,30 @@
           <%= link_to "Articles", articles_path, class:"nav-link" %>
         </li>
         <li class="nav-item">
+          <%= link_to "Users", users_path, class:"nav-link" %>
+        </li>
+        <% if logged_in? %>
+        <li class="nav-item">
           <%= link_to "New article", new_article_path, class:"nav-link" %>
         </li>
+        <% end %>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-success" type="submit">Search</button>
-      </form>
+    </ul>
+    <% if logged_in? %>
+        <%= link_to "Log out", logout_path, method: :delete, class:"d-flex nav-link" %>
+        <div class="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Your profile
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><%= link_to "Edit profile", edit_user_path(current_user), class:"dropdown-item" %></li>
+            <li><%= link_to "View profile", user_path(current_user), class:"dropdown-item" %></li>
+          </ul>
+        </div>
+    <% else %>
+        <%= link_to "Log in", login_path, class:"d-flex nav-link" %>
+        <%= link_to "sign up", signup_path, class:"d-flex nav-link" %>
+    <% end %>
     </div>
   </div>
 </nav>
