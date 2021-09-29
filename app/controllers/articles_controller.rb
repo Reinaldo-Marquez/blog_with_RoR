@@ -1,6 +1,5 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
-  before_action :require_user, exept: %i[index show]
   before_action :require_same_user, only: %i[edit update destroy]
 
   # GET /articles or /articles.json
