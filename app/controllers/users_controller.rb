@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
-  before_action :require_same_user, only: %i[edit update]
+  before_action :require_same_user, only: %i[edit update destroy]
+  before_action :require_admin, only: %i[destroy]
 
   # GET /users or /users.json
   def index
@@ -26,7 +27,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to articles_path, notice: "User was successfully created." }
+        session[:user_id] = @user.id
+        format.html { redirect_to user_path(@user), notice: "User was successfully created." }
         format.json { render :show, status: :created, location: @articles_path }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -69,7 +71,13 @@ class UsersController < ApplicationController
     end
 
     def require_same_user
-      if current_user != @user
+      if current_user != @user && !current_user.admin?
+        redirect_to root_path
+      end
+    end
+
+    def require_admin
+      if current_user != @user && !current_user.admin?
         redirect_to root_path
       end
     end
