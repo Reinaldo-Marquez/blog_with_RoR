@@ -5,6 +5,9 @@
     <hr>
       <%= @article.description.capitalize %>
   </div>
+  <% if @article.categories.any? %>
+    <p>Categories: <%= render @article.categories %></p>
+  <%end %>
   <div class="d-flex bd-highlight mb-3">
     <% if logged_in? && (current_user == @article.user || current_user.admin?) %>
       <%= link_to 'Edit the article', edit_article_path(@article), class:'btn btn-primary p-2 bd-highlight me-1' %> 

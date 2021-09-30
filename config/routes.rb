@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :article_categories
+  resources :categories
   resources :users, except: [:new]
   resources :articles
   root 'pages#home'

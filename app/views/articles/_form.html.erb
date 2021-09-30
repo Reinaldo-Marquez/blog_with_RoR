@@ -21,6 +21,13 @@
     <%= form.text_area :description, class: 'form-control', placeholder:"Example input placeholder"%>
   </div>
 
+  
+  <div class="mb-3">
+  <%= form.collection_check_boxes :category_ids, Category.all, :id, :name do |cb| %>
+    <% cb.label(class: "checkbox-inline input_checkbox me-3") {cb.check_box(class: "checkbox") + ' ' + cb.text} %>
+  <% end %>
+  </div>
+
   <div class="actions">
     <%= form.submit class:'btn btn-primary'%>
     <%= link_to 'Back', articles_path, class:'btn btn-success'%>

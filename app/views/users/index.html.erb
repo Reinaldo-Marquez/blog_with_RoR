@@ -17,7 +17,7 @@
         <td><%= link_to user.username, user %></td>
         <td><%= user.email %></td>
         <% if logged_in? and current_user.admin? %>
-        <td><%= link_to 'Destroy', user, class:'btn btn-danger', method: :delete, data: { confirm: 'Are you sure you wnat to delete the user and all their articles?' } %></td>
+        <td><%= link_to 'Destroy', user, class:'btn btn-danger ms-3', method: :delete, data: { confirm: 'Are you sure you wnat to delete the user and all their articles?' } %></td>
         <% end %>
       </tr>
     <% end %>

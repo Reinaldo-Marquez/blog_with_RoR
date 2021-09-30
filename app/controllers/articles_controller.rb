@@ -59,19 +59,20 @@ class ArticlesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_article
-      @article = Article.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def article_params
-      params.require(:article).permit(:title, :description)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_article
+    @article = Article.find(params[:id])
+  end
 
-    def require_same_user
-      if current_user != @article.user and !current_user.admin?
-        redirect_to root_path
-      end
+  # Only allow a list of trusted parameters through.
+  def article_params
+    params.require(:article).permit(:title, :description, category_ids: [])
+  end
+
+  def require_same_user
+    if current_user != @article.user && !current_user.admin?
+      redirect_to root_path
     end
+  end
 end
